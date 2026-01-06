@@ -9,9 +9,10 @@ __pycache__/
 .vscode/
 .idea/
 
-# Data
+# Data (user samples ignored, keep the example)
 data/samples/*.txt
 data/samples/*.json
+!data/samples/sample_reddit_thread.txt
 
 # OS
 .DS_Store
