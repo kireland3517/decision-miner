@@ -1,0 +1,18 @@
+# Environment
+.env
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# IDE
+.vscode/
+.idea/
+
+# Data
+data/samples/*.txt
+data/samples/*.json
+
+# OS
+.DS_Store
+Thumbs.db
