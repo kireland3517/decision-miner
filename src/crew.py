@@ -10,7 +10,8 @@ from typing import Optional
 
 from .agents.friction_listener import create_friction_listener
 from .agents.decision_mapper import create_decision_mapper
-from .tools.tavily_search import tavily_search_tool, search_subreddit
+from .tools.tavily_search import tavily_search_tool, search_subreddit, tavily_extract_tool
+from .tools.reddit_json import fetch_reddit_thread_tool
 from .models.decision_pattern import DecisionBottleneckReport
 
 
@@ -19,6 +20,12 @@ def create_scan_task(target: str, friction_listener) -> Task:
     return Task(
         description=f"""Search and scan online discussions in {target} to find threads
 that reveal decision debt and process frustration.
+
+WORKFLOW:
+1. Use "Search Reddit and Forums" or "Search Subreddit" to find promising thread URLs
+2. For the most promising Reddit URLs found, use "Fetch Reddit Thread" to get the full
+   comment tree with all replies, OR use "Extract Full Page Content" as a fallback
+3. Analyze the full thread content to find high-signal friction signals
 
 Your goal is to find 3-5 high-signal threads where people are venting about:
 - Policy vs reality gaps
@@ -29,15 +36,15 @@ Your goal is to find 3-5 high-signal threads where people are venting about:
 
 For each thread found, extract:
 1. The source URL
-2. Key quotes that reveal friction
+2. Key quotes that reveal friction (use ACTUAL QUOTES from the full thread content)
 3. Signal type (policy_gap, workaround, judgment_call, etc.)
 4. Intensity score (0-1)
 
 Focus on specificity - vague complaints are less valuable than detailed descriptions
-of actual decision scenarios.""",
+of actual decision scenarios. The deeper thread comments often contain the richest signals.""",
         expected_output="""A list of 3-5 high-signal friction signals, each containing:
 - Source URL
-- Key quotes (the actual text revealing the friction)
+- Key quotes (the actual text revealing the friction - include multiple quotes per thread)
 - Signal type classification
 - Intensity score with justification""",
         agent=friction_listener,
@@ -91,7 +98,7 @@ def create_decision_miner_crew(
     # Create agents with tools
     friction_listener = create_friction_listener(
         llm=llm,
-        tools=[tavily_search_tool, search_subreddit]
+        tools=[tavily_search_tool, search_subreddit, tavily_extract_tool, fetch_reddit_thread_tool]
     )
     decision_mapper = create_decision_mapper(llm=llm)
 
