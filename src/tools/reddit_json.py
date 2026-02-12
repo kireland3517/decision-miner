@@ -157,7 +157,7 @@ def fetch_reddit_thread(url: str, max_depth: int = 4, max_comments: int = 50) ->
 
 
 @tool("Fetch Reddit Thread")
-def fetch_reddit_thread_tool(url: str, max_comments: int = 30) -> str:
+def fetch_reddit_thread_tool(url: str, max_comments: int = 30, max_depth: int = 4) -> str:
     """
     Fetch the full content of a Reddit thread including the original post and top comments.
     No Reddit API credentials needed. Use this when you have a Reddit URL from search results
@@ -166,11 +166,12 @@ def fetch_reddit_thread_tool(url: str, max_comments: int = 30) -> str:
     Args:
         url: Full Reddit thread URL (e.g., https://www.reddit.com/r/socialwork/comments/abc123/title/)
         max_comments: Maximum number of comments to include (default 30, sorted by score)
+        max_depth: Maximum comment nesting depth to follow (default 4)
 
     Returns:
         Formatted thread content with original post and top comments
     """
-    result = fetch_reddit_thread(url, max_depth=4, max_comments=max_comments)
+    result = fetch_reddit_thread(url, max_depth=max_depth, max_comments=max_comments)
 
     if result.get("error"):
         return f"Error fetching thread: {result['error']} (URL: {result['url']})"

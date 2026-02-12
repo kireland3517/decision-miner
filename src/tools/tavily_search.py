@@ -18,7 +18,7 @@ def get_tavily_client() -> TavilyClient:
 
 
 @tool("Search Reddit and Forums")
-def tavily_search_tool(query: str, max_results: int = 10, max_content_chars: int = 2000, max_raw_chars: int = 5000) -> str:
+def tavily_search_tool(query: str, max_results: int = 10, max_content_chars: int = 3000, max_raw_chars: int = 5000) -> str:
     """
     Search the web for discussions, forum posts, and Reddit threads related to the query.
     Use this to find real human discussions about workplace frustrations and decision-making challenges.
@@ -26,7 +26,7 @@ def tavily_search_tool(query: str, max_results: int = 10, max_content_chars: int
     Args:
         query: Search query - include specific terms like 'reddit', subreddit names, or forum names
         max_results: Maximum number of results to return (default 10)
-        max_content_chars: Max characters for content summary (default 2000)
+        max_content_chars: Max characters for content summary (default 3000)
         max_raw_chars: Max characters for raw content (default 5000)
 
     Returns:

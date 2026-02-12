@@ -23,8 +23,9 @@ that reveal decision debt and process frustration.
 
 WORKFLOW:
 1. Use "Search Reddit and Forums" or "Search Subreddit" to find promising thread URLs
-2. For the most promising Reddit URLs found, use "Fetch Reddit Thread" to get the full
-   comment tree with all replies, OR use "Extract Full Page Content" as a fallback
+2. For Reddit URLs, use "Fetch Reddit Thread" to get structured comments sorted by score.
+   For non-Reddit URLs (forums, blogs), use "Extract Full Page Content" instead.
+   If "Fetch Reddit Thread" fails on a URL, fall back to "Extract Full Page Content".
 3. Analyze the full thread content to find high-signal friction signals
 
 Your goal is to find 3-5 high-signal threads where people are venting about:
