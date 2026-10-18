@@ -4,6 +4,10 @@ Discover **decision debt** by mining online discussions where people vent about 
 
 Decision Miner uses AI agents to scan Reddit threads and forums, find high-signal frustration posts, and extract structured decision patterns — the invisible micro-decisions employees make daily without clear guidance.
 
+**Who it's for:** operations, product, and process-improvement researchers looking for undocumented decision-making inside an industry or role.
+
+**Stack:** Python 3.10–3.13, CrewAI, Tavily, OpenAI, Pydantic.
+
 ## How It Works
 
 Two AI agents work in sequence via [CrewAI](https://www.crewai.com/):
